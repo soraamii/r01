@@ -7,6 +7,22 @@ const products = [
   {pno: 4, pname: 'Java Chip Frappuccino', price: 6300}
 ]
 
+// 총액
+const getTotal = (arr) => {
+  if(!arr || arr.length === 0) {
+    return 0
+  }
+
+  let sum = 0
+
+  //reduce
+  for(const ele of arr) {
+    sum += (ele.price * ele.qty)
+  }
+
+  return sum
+}
+
 const Kiosk = () => {
   
     // useState: 배열을 반환
@@ -34,6 +50,30 @@ const Kiosk = () => {
     setItems([...items])
   }
 
+  const handleClickQty = (pno, amount) => {
+    console.log("pno", pno, "amount", amount)
+
+    const target = items.filter(item => item.pno === pno)[0]
+
+    console.log(target)
+
+    //수량 증가식
+    if(amount === 1) {
+      target.qty += 1
+      setItems([...items])
+    } else {
+        
+        if(target.qty === 1) {
+          setItems( items.filter(ele => ele.pno != pno))
+        } else {
+          target.qty -= 1
+          setItems([...items])
+        }
+
+    }
+
+  }
+
 
 
 
@@ -49,10 +89,10 @@ const Kiosk = () => {
         <ul>
           {products.map( p => 
           <li
-          className="text-2xl m-3 p-3 bg-[#00704a] border-white text-white border-b-2" 
+          className="text-xl m-2 p-1 bg-[#00704a] border-white text-white border-b-2" 
           key = {p.pno}
           onClick={() => {handleClickBuy(p)}}>
-            {p.pname} {p.price}
+           <img src={require(`../../public/image/c0${p.pno}.jpg`)} width={100}/> {p.pname} {p.price}
             <button className="border-2 m-2 p-2 rounded-lg bg-[#2C2A29] text-white">BUY</button>
           </li>)}
         </ul>
@@ -69,12 +109,23 @@ const Kiosk = () => {
               <div>{item.price}</div>
             </div>
             <div className="flex justify-center text-2xl">
-              <button className="m-1 rounded-lg bg-yellow-50 p-4">+</button>
+              <button className="m-1 rounded-lg bg-yellow-50 p-4"
+              onClick={() => handleClickQty(item.pno, 1)}>
+                +
+              </button>
+
               <p className="m-2 text-[#f6f5ef] p-2">{item.qty}</p>
-              <button className="m-1 rounded-lg bg-yellow-50 p-4">-</button>
+              
+              <button className="m-1 rounded-lg bg-yellow-50 p-4"
+              onClick={() => handleClickQty(item.pno, -1)}>
+                -
+              </button>
             </div>
           </li>)}
         </ul>
+        <div className="bg-white text-5xl text-[#2C2A29] mt-10 p-5">
+          TOTAL {getTotal(items)}
+        </div>
       </div>
     </div>
 
