@@ -10,6 +10,16 @@ const Todo1 = () => {
   const [todos, setTodos] = useState([])
   const [current, setCurrent] = useState(null)
 
+  useEffect(() => {
+
+    const jsonStr = localStorage.getItem("todos")
+    
+    if(jsonStr) {
+      setTodos(JSON.parse(jsonStr))
+    }
+
+  }, [])
+
 
   const addTodo = (todoObj) => {
     console.log(uuid(), todoObj)
@@ -42,14 +52,22 @@ const Todo1 = () => {
 
   }
 
+  const saveAll = () => {
+
+    const str = JSON.stringify(todos)
+
+    localStorage.setItem("todos", str)
+
+  }
+
 
   return ( 
     <>
-      <div className="text-5xl">Todo1</div>
+      <div className="text-5xl">Todo List</div>
       <div>
         <Todo1Input addTodo={addTodo}></Todo1Input>
         <Todo1Read current={current} remove={remove} modify={modify}></Todo1Read>
-        <Todo1List todos={todos} requestView={requestView}></Todo1List>
+        <Todo1List todos={todos} requestView={requestView} saveAll={saveAll}></Todo1List>
       </div>
     </>
    );

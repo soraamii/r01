@@ -6,7 +6,7 @@ const Todo1Input = ({addTodo}) => {
 
   return (
     <div className="w-full bg-green-300">
-      <div>Todo1 Input</div>
+      <div className="font-bold">Todo1 Input</div>
       <div>
         <input
           className="m-3 p-3 bg-blue-300"
@@ -21,7 +21,7 @@ const Todo1Input = ({addTodo}) => {
         />
         {/* 클릭하면 index쪽으로 전달되어야 함 그래서 함수는 index에서 선언 */}
         <button
-          className="bg-blue-300 m-3 p-3 border-2 border-black rounded-lg"
+          className="bg-blue-300 m-3 p-3 rounded-lg border-2 border-grey-400"
           onClick={() => {
             addTodo(todo)
             setTodo({title: ''})

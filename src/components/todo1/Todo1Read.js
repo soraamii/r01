@@ -18,7 +18,7 @@ const Todo1Read = ({current, remove, modify}) => {
 
   return (
     <div className="w-full bg-red-300">
-      <div>Todo1 Read</div>
+      <div className="font-bold">Todo1 Read</div>
       <div>
         {todo.tno}
       </div>
@@ -36,13 +36,13 @@ const Todo1Read = ({current, remove, modify}) => {
       </div>
       <div>
         <button
-          className="m-3 p-2 bg-blue-300"
+          className="m-3 p-2 bg-blue-300 rounded-lg border-2 border-grey-400"
           onClick={() => modify(todo)}
         >
           MOD
         </button>
         <button
-          className="m-3 p-2 bg-red-600"
+          className="m-3 p-2 bg-red-600 rounded-lg border-2 border-grey-400"
           onClick={() => remove(todo.tno)}
         >
           DEL
